@@ -23,4 +23,26 @@ function checkSummer(codes) {
     })
     console.log(res.three*res.two);
 }
-checkSummer(load())
+
+function partTwo(codes) {
+    let intersection;
+    codes.some( code1 => {
+        codes.some( code2 => {            
+            let positions = [];
+            let diffs = 0;
+            code1.split('').forEach( (char, i) => {     
+                if(char != code2[i]){
+                    positions.push(i);
+                    diffs++;
+                }
+            })
+            if(diffs == 1) {
+                // console.log(positions)
+                console.log(code1.length);
+                console.log(code1.slice(0,positions[0]).concat(code1.slice(positions[0]+1)));
+            }
+        })
+    })
+    // console.log(intersection);
+}
+partTwo(load())
