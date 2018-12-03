@@ -6,23 +6,27 @@ function load() {
     return c;
 }
 
-let __seenFrequencies = {}
-function freqOut(f,seenFrequencies) {
-    let isRepeated = false;
-    let sf = Object.create(seenFrequencies);
-    f.reduce( (p, c) => {        
-        console.log(typeof sf[p] === 'undefined')
-        if( sf[p] == "undefined") {
-            sf[p] = "1";                       
-        } else {            
-            rep = p
-            isRepeated = true; 
+function freqOut(adjustments,frequencies = []) {
+    let curr = frequencies.length > 0 ? frequencies[frequencies.length - 1] : adjustments[0]
+    let start = frequencies.length > 0 ? 0 : 1
+    let dupeFound = false;
+    
+    adjustments.slice(start).some( adj => {    
+        let sum = curr+adj            
+        if(frequencies.includes(sum)) {
+            dupeFound = true;            
+            console.log(sum);
+            return true;
         }
-        return (p + c)
-    })
-    if(isRepeated == false) {
-        return freqOut(f, sf)
+        
+        console.log(curr+"+"+adj+"="+sum)
+        frequencies.push(sum);
+        curr = sum;
+    })    
+    if(!dupeFound) {
+        return freqOut(adjustments,frequencies);        
+    } else {
+        return dupeFound;
     }
-    return([rep,sf]); 
 }
-console.log(freqOut(load(),__seenFrequencies)[1])
+console.log(freqOut(load()))
