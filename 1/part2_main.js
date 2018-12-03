@@ -18,7 +18,6 @@ function freqOut(adjustments,frequencies = []) {
             console.log(sum);
             return true;
         }
-        
         console.log(curr+"+"+adj+"="+sum)
         frequencies.push(sum);
         curr = sum;
